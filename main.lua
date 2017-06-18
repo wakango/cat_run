@@ -16,27 +16,30 @@ local tapScreen = display.newRect( centerX, centerY, display.contentWidth, displ
 --背景の空の表示
 local sky = display.newImage( "sky.jpg", centerX, centerY )
 
+local scorePoint = 0
 --クリア画面の作成
 local function  clear()
     local backred = display.newRect( centerX, centerY, display.contentWidth, display.contentHeight  )
     backred:setFillColor( 0, 0, 255 )
     display.newText( "Clear", centerX, centerY, nil, 40 )
+    display.newText( "SCORE:"..scorePoint, centerX, centerY+100, nil, 20 )
 end
 --失敗画面の作成
 local function falsed()
     local backblack = display.newRect( centerX, centerY, display.contentWidth, display.contentHeight  )
     backblack:setFillColor( 0, 0, 0 )
     display.newText( "False", centerX, centerY, nil, 40 )
+    display.newText( "SCORE:"..scorePoint, centerX, centerY+100, nil, 20 )
 end
 
 --木１の表示
 local trees1 = {}
 for i=1,10 do
-	trees1[i] = display.newImage( "tree1.png" )
-	trees1[i].x = (centerX + 300) * i
-	trees1[i].y = display.contentHeight - 40
-	trees1[i].xScale = 0.5
-	trees1[i].yScale = 1
+    trees1[i] = display.newImage( "tree1.png" )
+    trees1[i].x = (centerX + 300) * i
+    trees1[i].y = display.contentHeight - 40
+    trees1[i].xScale = 0.5
+    trees1[i].yScale = 1
 end
 
 --木１を物理エンジンに登録
@@ -48,11 +51,11 @@ end
 --木２の表示
 local trees2 = {}
 for i=1,10 do
-	trees2[i] = display.newImage( "tree2.png" )
-	trees2[i].x = (centerX + 400) * i
-	trees2[i].y = display.contentHeight - 40
-	trees2[i].xScale = 0.3
-	trees2[i].yScale = 1
+    trees2[i] = display.newImage( "tree2.png" )
+    trees2[i].x = (centerX + 400) * i
+    trees2[i].y = display.contentHeight - 40
+    trees2[i].xScale = 0.3
+    trees2[i].yScale = 1
 end
 
 --木２を物理エンジンに登録
@@ -64,11 +67,11 @@ end
 --木３の表示
 local trees3 = {}
 for i=1,10 do
-	trees3[i] = display.newImage( "tree3.png" )
-	trees3[i].x = (centerX + 500) * i
-	trees3[i].y = display.contentHeight - 100
-	trees3[i].xScale = 0.5
-	trees3[i].yScale = 1
+    trees3[i] = display.newImage( "tree3.png" )
+    trees3[i].x = (centerX + 500) * i
+    trees3[i].y = display.contentHeight - 100
+    trees3[i].xScale = 0.5
+    trees3[i].yScale = 1
 end
 
 --木３を物理エンジンに登録
@@ -125,7 +128,6 @@ hpdisplay.x = display.contentWidth * 0.1
 hpdisplay.y = display.contentHeight * 0.1
 
 --スコアの表示
-local scorePoint = 0
 local scoredisplay = display.newText( "SCORE:"..scorePoint, 0, 0, nil, 20 )
 scoredisplay.x = display.contentWidth * 0.8
 scoredisplay.y = display.contentHeight * 0.1
@@ -148,7 +150,6 @@ local function onMouse( event )
         hpdisplay.text = "HP:"..hpPoint --hpの減少の更新
         if hpPoint == 0 then
             falsed()
-            display.newText( "SCORE:"..scorePoint, centerX, centerY+100, nil, 20 )
         end
     end
 end
@@ -166,10 +167,10 @@ end
 local grassposi = 0
 local grasses = {}
 for i=1,30 do	
-	grasses[i] = display.newImage( "grass.png" )
-	grasses[i].x = grassposi
-	grasses[i].y = display.contentHeight - 40
-	grassposi = centerX * i
+    grasses[i] = display.newImage( "grass.png" )
+    grasses[i].x = grassposi
+    grasses[i].y = display.contentHeight - 40
+    grassposi = centerX * i
 end
 
 --芝を物理エンジンに登録
@@ -181,12 +182,11 @@ end
 --コインの表示
 local coins = {}
 for i=1,10 do
-	coins[i] = display.newImage( "coin.png" )
-	coins[i].x = (centerX + 350) * i
-	coins[i].y = display.contentHeight * 0.5
-	coins[i].xScale = 0.15
-	coins[i].yScale = 0.15
-    coins[i].surfaceType = "coin"
+    coins[i] = display.newImage( "coin.png" )
+    coins[i].x = (centerX + 350) * i
+    coins[i].y = display.contentHeight * 0.5
+    coins[i].xScale = 0.15
+    coins[i].yScale = 0.15
 end
 
 --接触イベント
@@ -238,13 +238,11 @@ end
 
 
 local  function resultDisplay( event )
-	if scorePoint > 0 and hpPoint > 0 then --コインが50以上ならクリア
-		clear()
-        display.newText( "SCORE:"..scorePoint, centerX, centerY+100, nil, 20 )
-	elseif scorePoint <= 0 then --コインが0なら失敗
-		falsed()
-        display.newText( "SCORE:"..scorePoint, centerX, centerY+100, nil, 20 )
-	end
+    if scorePoint > 0 and hpPoint > 0 then --コインが50以上ならクリア
+        clear()
+    elseif scorePoint <= 0 then --コインが0なら失敗
+        falsed()
+    end
 end 
 
 local DELAYTIME = 30*1000
