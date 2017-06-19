@@ -4,6 +4,9 @@ local physics = require( "physics" )
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
 
+local backgroundMusic = audio.loadStream( "bgm_powerful.mp3" )
+local backgroundMusicChannel audio.play( backgroundMusic, { loops=-1 } )
+
 --電波、充電、時間などの表示を隠す
 display.setStatusBar( display.HiddenStatusBar )
 
@@ -23,6 +26,7 @@ local function  clear()
     backred:setFillColor( 0, 0, 255 )
     display.newText( "Clear", centerX, centerY, nil, 40 )
     display.newText( "SCORE:"..scorePoint, centerX, centerY+100, nil, 20 )
+    audio.pause( backgroundMusicChannel )
 end
 --失敗画面の作成
 local function falsed()
@@ -30,6 +34,7 @@ local function falsed()
     backblack:setFillColor( 0, 0, 0 )
     display.newText( "False", centerX, centerY, nil, 40 )
     display.newText( "SCORE:"..scorePoint, centerX, centerY+100, nil, 20 )
+    audio.pause( backgroundMusicChannel )
 end
 
 --木１の表示
@@ -245,7 +250,7 @@ local  function resultDisplay( event )
     end
 end 
 
-local DELAYTIME = 30*1000
+local DELAYTIME = 10*1000
 timer.performWithDelay( DELAYTIME, resultDisplay) --DELAYTIME後に関数実行
 
 
