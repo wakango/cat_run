@@ -5,7 +5,8 @@ local centerX = display.contentCenterX
 local centerY = display.contentCenterY
 
 local backgroundMusic = audio.loadStream( "bgm_powerful.mp3" )
-local backgroundMusicChannel audio.play( backgroundMusic, { loops=-1 } )
+local backgroundMusicChannel = audio.play( backgroundMusic, { loops=-1 } )
+audio.setVolume(0.01, {channel = backgroundMusicChannel})
 
 --電波、充電、時間などの表示を隠す
 display.setStatusBar( display.HiddenStatusBar )
@@ -29,7 +30,7 @@ local function  clear()
     audio.pause( backgroundMusicChannel )
 end
 --失敗画面の作成
-local function falsed()
+local function failed()
     local backblack = display.newRect( centerX, centerY, display.contentWidth, display.contentHeight  )
     backblack:setFillColor( 0, 0, 0 )
     display.newText( "False", centerX, centerY, nil, 40 )
@@ -154,7 +155,7 @@ local function onMouse( event )
         hpPoint = hpPoint -100
         hpdisplay.text = "HP:"..hpPoint --hpの減少の更新
         if hpPoint == 0 then
-            falsed()
+            failed()
         end
     end
 end
@@ -246,25 +247,10 @@ local  function resultDisplay( event )
     if scorePoint > 0 and hpPoint > 0 then --コインが50以上ならクリア
         clear()
     elseif scorePoint <= 0 then --コインが0なら失敗
-        falsed()
+        failed()
     end
 end 
 
 local DELAYTIME = 10*1000
 timer.performWithDelay( DELAYTIME, resultDisplay) --DELAYTIME後に関数実行
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
