@@ -33,7 +33,7 @@ end
 local function failed()
     local backblack = display.newRect( centerX, centerY, display.contentWidth, display.contentHeight  )
     backblack:setFillColor( 0, 0, 0 )
-    display.newText( "False", centerX, centerY, nil, 40 )
+    display.newText( "〜失敗〜", centerX, centerY, nil, 40 )
     display.newText( "SCORE:"..scorePoint, centerX, centerY+100, nil, 20 )
     audio.pause( backgroundMusicChannel )
 end
@@ -150,13 +150,11 @@ end
 
 local function onMouse( event )
     if ( event.phase == "began") then
-        display.remove(event.target)
-        event.target = nil
-        hpPoint = hpPoint -100
-        hpdisplay.text = "HP:"..hpPoint --hpの減少の更新
-        if hpPoint == 0 then
-            failed()
-        end
+        -- 問題: ネズミを消す
+
+        -- 問題: HP を減らす&表示を更新
+
+        -- 問題: HP がゼロになったら失敗画面を表示する
     end
 end
 
@@ -164,7 +162,9 @@ local mousemodel = { -15, 23, 10, 23, 10, -15, -15, -15 }--物理エンジンに
 --ネズミを物理エンジンに登録
 for index,mouse in pairs( mousies ) do
     physics.addBody( mouse, "kinematic", { denisity=0, friction=1, bounce=0, shape=mousemodel, isSensor=true } )
-    mouse:setLinearVelocity( -100, 0 )
+
+		-- 問題: ネズミを左に動かす
+
     --ネズミへの接触イベントの登録
     mouse:addEventListener( "collision", onMouse )
 end
@@ -251,6 +251,6 @@ local  function resultDisplay( event )
     end
 end 
 
-local DELAYTIME = 10*1000
+local DELAYTIME = 30*1000
 timer.performWithDelay( DELAYTIME, resultDisplay) --DELAYTIME後に関数実行
 
