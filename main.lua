@@ -163,7 +163,7 @@ local mousemodel = { -15, 23, 10, 23, 10, -15, -15, -15 }--物理エンジンに
 for index,mouse in pairs( mousies ) do
     physics.addBody( mouse, "kinematic", { denisity=0, friction=1, bounce=0, shape=mousemodel, isSensor=true } )
 
-		-- 問題: ネズミを左に動かす
+    -- 問題: ネズミを左に動かす
 
     --ネズミへの接触イベントの登録
     mouse:addEventListener( "collision", onMouse )
